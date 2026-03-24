@@ -1,3 +1,4 @@
+require('dotenv').config();
 const express = require("express");
 const cors = require("cors");
 const path = require('path');
@@ -11,8 +12,8 @@ const { default: axios } = require("axios");
 const {spawn} = require('child_process');
 const app = express();
 const bcryptSalt =  bcrypt.genSaltSync(10);
-const jwtSecret = 'f8u230f20u203f20i3o';
-const APIkey = 'd19a1eac74129a54df64265af607e433';
+const jwtSecret = process.env.JWT_SECRET || 'change-me';
+const APIkey = process.env.OPENWEATHER_API_KEY || '';
 
 const expressWs = require("express-ws");
 expressWs(app);
@@ -55,7 +56,6 @@ let latestHumsoil;
 let rainfall;
 let fertilizerRecommendation;
 let cropRecommendation;
-require("dotenv").config();
 app.use(express.json());
 app.use(cookieParser());
 app.use(cors({
